@@ -1,0 +1,7 @@
+# - Python Stuff -
+.venv
+mkdocs_material_extends/__pycache__
+
+# - Misc -
+.vscode
+.DS_Store

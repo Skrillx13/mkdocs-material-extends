@@ -1,0 +1,12 @@
+[project]
+name = "mkdocs-material-extends"
+version = "1.0"
+description = "An extended version of MKDocs Material, featuring custom alterations"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "csscompressor>=0.9.5",
+    "jsmin>=3.0.1",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.5.49",
+]
