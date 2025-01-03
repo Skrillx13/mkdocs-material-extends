@@ -10,3 +10,6 @@ dependencies = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.5.49",
 ]
+
+[project.entry-points.'mkdocs.plugins']
+mkdocs_material_extends = "mkdocs_material_extends:MaterialExtends"

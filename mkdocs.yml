@@ -1,0 +1,8 @@
+site_name: Material Extends
+
+theme:
+  name: material
+
+plugins:
+  - search
+  - mkdocs_material_extends

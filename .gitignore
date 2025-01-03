@@ -1,6 +1,7 @@
 # - Python Stuff -
 .venv
 mkdocs_material_extends/__pycache__
+mkdocs_material_extends.egg-info
 
 # - Misc -
 .vscode

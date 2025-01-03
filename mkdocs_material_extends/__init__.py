@@ -5,17 +5,15 @@ from mkdocs.config import config_options
 from csscompressor import compress as compress_css
 from jsmin import jsmin as compress_js
 
-class MaterialExtendsPlugin(BasePlugin):
+class MaterialExtends(BasePlugin):
     config_scheme = (
         ('css_dir', config_options.Type(str, default='stylesheets')),
         ('js_dir', config_options.Type(str, default='javascripts')),
     )
 
     def on_config(self, config):
-        # Path to the plugin directory
         plugin_dir = os.path.dirname(__file__)
 
-        # Minify and add CSS files from stylesheets directory
         css_dir = os.path.join(plugin_dir, self.config['css_dir'])
         if os.path.exists(css_dir):
             for css_file in glob.glob(os.path.join(css_dir, '*.css')):
@@ -26,7 +24,6 @@ class MaterialExtendsPlugin(BasePlugin):
                     f.write(minified_css)
                 config['extra_css'].insert(0, os.path.relpath(minified_css_file, plugin_dir))
 
-        # Minify and add JavaScript files from javascripts directory
         js_dir = os.path.join(plugin_dir, self.config['js_dir'])
         if os.path.exists(js_dir):
             for js_file in glob.glob(os.path.join(js_dir, '*.js')):
