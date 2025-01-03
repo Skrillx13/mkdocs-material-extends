@@ -1,37 +1,29 @@
-import os
+# Plugin Src
+# This plugin imports extra css and javascript to the theme, as well as allowing templates to be defined in the plugin itself.
+
 import glob
-from mkdocs.plugins import BasePlugin
-from mkdocs.config import config_options
-from csscompressor import compress as compress_css
-from jsmin import jsmin as compress_js
+import os
+import mkdocs.plugins
 
-class MaterialExtends(BasePlugin):
-    config_scheme = (
-        ('css_dir', config_options.Type(str, default='stylesheets')),
-        ('js_dir', config_options.Type(str, default='javascripts')),
-    )
+RESOURCE_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'theme')
 
-    def on_config(self, config):
-        plugin_dir = os.path.dirname(__file__)
+class MkdocsMaterialExtends(mkdocs.plugins.BasePlugin):
+    def on_config(self, config, **kwargs):
+        config['theme'].dirs.insert(0, RESOURCE_PATH)
+        base_path = RESOURCE_PATH.replace('\\', '/') + '/'
 
-        css_dir = os.path.join(plugin_dir, self.config['css_dir'])
-        if os.path.exists(css_dir):
-            for css_file in glob.glob(os.path.join(css_dir, '*.css')):
-                with open(css_file, 'r', encoding='utf-8') as f:
-                    minified_css = compress_css(f.read())
-                minified_css_file = css_file.replace('.css', '.min.css')
-                with open(minified_css_file, 'w', encoding='utf-8') as f:
-                    f.write(minified_css)
-                config['extra_css'].insert(0, os.path.relpath(minified_css_file, plugin_dir))
+        # Helper Function: Adds extra CSS to the theme.
+        extras = set(config['extra_css'])
+        for f in glob.glob(base_path + '**/*.css', recursive=True):
+            name = f.replace('\\', '/').replace(base_path, '')
+            if name not in extras:
+                config['extra_css'].append(name)
 
-        js_dir = os.path.join(plugin_dir, self.config['js_dir'])
-        if os.path.exists(js_dir):
-            for js_file in glob.glob(os.path.join(js_dir, '*.js')):
-                with open(js_file, 'r', encoding='utf-8') as f:
-                    minified_js = compress_js(f.read())
-                minified_js_file = js_file.replace('.js', '.min.js')
-                with open(minified_js_file, 'w', encoding='utf-8') as f:
-                    f.write(minified_js)
-                config['extra_javascript'].insert(0, os.path.relpath(minified_js_file, plugin_dir))
+        # Another Helper Function: Adds extra JavaScripts to theme theme.
+        extras = set(config['extra_javascript'])
+        for f in glob.glob(base_path + '**/*.js', recursive=True):
+            name = f.replace('\\', '/').replace(base_path, '')
+            if name not in extras:
+                config['extra_javascript'].append(name)
 
         return config

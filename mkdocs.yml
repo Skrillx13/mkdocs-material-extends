@@ -2,6 +2,21 @@ site_name: Material Extends
 
 theme:
   name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: cyan
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to system preference
 
 plugins:
   - search

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block libs %}
+{{ super() }}
+{% include "partials/libs.html" ignore missing %}
+{% endblock %}
+
+{% block announce %}{% include "announcements.html" ignore missing %}{% endblock %}

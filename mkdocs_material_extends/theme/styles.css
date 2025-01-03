@@ -1,0 +1,4 @@
+/* Header Styles */
+body > header {
+  border-bottom: 2px solid #00FFFF;
+}

@@ -5,11 +5,9 @@ description = "An extended version of MKDocs Material, featuring custom alterati
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "csscompressor>=0.9.5",
-    "jsmin>=3.0.1",
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.5.49",
 ]
 
 [project.entry-points.'mkdocs.plugins']
-mkdocs_material_extends = "mkdocs_material_extends:MaterialExtends"
+mkdocs_material_extends = "mkdocs_material_extends:MkdocsMaterialExtends"
